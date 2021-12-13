@@ -1,0 +1,65 @@
+/*
+ * User Manual available at https://docs.gradle.org/7.3.1/userguide/building_java_projects.html
+ */
+
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'
+    id 'java'
+    id 'idea'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+version '2.3.0'
+
+sourceCompatibility = 1.7
+
+javafx {
+    version = "17.0.1"
+    modules = ['javafx.base', 'javafx.controls', 'javafx.graphics', 'javafx.swing']
+    configuration = "implementation"
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation files('lib/net.mariottini.swing.jar')
+
+     // This dependency is used by the application.
+    implementation 'com.google.guava:guava:30.1.1-jre'
+
+    // https://mvnrepository.com/artifact/com.jidesoft/jide-oss
+    implementation 'com.jidesoft:jide-oss:3.6.18'
+
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+    // https://mvnrepository.com/artifact/log4j/log4j
+    implementation 'log4j:log4j:1.2.6'
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'listfix.view.GUIScreen'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+        	  srcDirs= ["src/main/resources"]
+				}
+    }
+}
+
+applicationDefaultJvmArgs = ['--add-exports=java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED',
+                             '--add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED'
+                            ]
